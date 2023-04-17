@@ -27,17 +27,7 @@ function Articles() {
                 src={article.article_img_url}
                 alt={article.title}
               />
-              <p className="article-context">Title: {article.title}</p>
-              <p className="article-context">Author: {article.author}</p>
-              <p className="article-context">Topic: {article.topic}</p>
-              <p className="article-context">Article: {article.body}</p>
-              <br />
-              Comment Count: {article.comment_count}
-              <br />
-              Votes: {article.votes}
-              <br />
-              Created At: {article.created_at}
-              <br />
+              <p className="article-context">{article.title}</p>
             </li>
           );
         })}
