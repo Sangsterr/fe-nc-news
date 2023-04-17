@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as api from "../api";
+import ArticlesCard from "./ArticlesCard";
 
 function Articles() {
   const [articles, setArticles] = useState();
@@ -20,16 +21,7 @@ function Articles() {
     <main>
       <ul id="articles-list">
         {articles.map((article) => {
-          return (
-            <li className="each-article" key={article.article_id}>
-              <img
-                className="article-image"
-                src={article.article_img_url}
-                alt={article.title}
-              />
-              <p className="article-context">{article.title}</p>
-            </li>
-          );
+          return <ArticlesCard article={article} />;
         })}
       </ul>
     </main>
