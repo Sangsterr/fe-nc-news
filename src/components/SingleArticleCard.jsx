@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, Route, useParams } from "react-router-dom";
 import * as api from "../api";
+import dayjs from "dayjs";
 
 function SingleArticleCard() {
   const { article_id } = useParams();
   const [article, setArticle] = useState();
   const [comments, setComments] = useState();
   const [showComments, setShowComments] = useState(false);
+  const [currentVotes, setCurrentVotes] = useState();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,6 +23,19 @@ function SingleArticleCard() {
       setIsLoading(false);
     });
   }, [article_id]);
+
+  function handleChange(num) {
+    setArticle((previousArticle) => ({
+      ...previousArticle,
+      votes: previousArticle.votes + num,
+    }));
+    api.voteOnArticle(article, num).catch((err) => {
+      setArticle((prevArticle) => ({
+        ...prevArticle,
+        votes: prevArticle.votes - num,
+      }));
+    });
+  }
 
   if (isLoading) {
     return <p>Page Loading...</p>;
@@ -37,8 +52,29 @@ function SingleArticleCard() {
       <p>Author: {article.author}</p>
       <p>Topic: {article.topic}</p>
       <p>Content: {article.body}</p>
+      <p>
+        Posted At: {dayjs(article.created_at).format("HH:mm:ss - DD-MM-YYYY")}
+      </p>
       <p>Votes: {article.votes}</p>
-      <p>Posted At: {article.created_at}</p>
+      <button
+        className="increase-vote-button"
+        onClick={(e) => {
+          handleChange(1);
+          e.target.disabled = true;
+        }}
+      >
+        Vote Up
+      </button>
+      <button
+        className="decrease-vote-button"
+        onClick={(e) => {
+          handleChange(-1);
+          e.target.disabled = true;
+        }}
+      >
+        Vote Down
+      </button>
+      <br />
       <button
         className="article-comment-button"
         onClick={() => {
@@ -56,7 +92,10 @@ function SingleArticleCard() {
                 <li className="each-comment" key={comment.comment_id}>
                   <p>Author: {comment.author}</p>
                   <p>Comment: {comment.body}</p>
-                  <p>Created At: {comment.created_at}</p>
+                  <p>
+                    Created At:{" "}
+                    {dayjs(comment.created_at).format("HH:mm:ss - DD-MM-YYYY")}
+                  </p>
                   <p>Votes: {comment.votes}</p>
                   <br />
                 </li>

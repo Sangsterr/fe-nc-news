@@ -18,3 +18,12 @@ export const fetchArticleComments = async (article_id) => {
     const response = await newsAPI.get(`/articles/${article_id}/comments`)
     return response.data.comments;
 }
+
+export const voteOnArticle = async (article, num) => {
+    const updatedArticle = {
+        inc_votes: num
+    };
+
+    const response = await newsAPI.patch(`/articles/${article.article_id}`, updatedArticle);
+    return response.data;
+}
