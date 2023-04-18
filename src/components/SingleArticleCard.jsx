@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, Route, useParams } from "react-router-dom";
 import * as api from "../api";
 
 function SingleArticleCard() {
   const { article_id } = useParams();
   const [article, setArticle] = useState();
+  const [comments, setComments] = useState();
+  const [showComments, setShowComments] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -13,9 +16,12 @@ function SingleArticleCard() {
       setArticle(singleArticle);
       setIsLoading(false);
     });
+    api.fetchArticleComments(article_id).then((comments) => {
+      setComments(comments);
+      setIsLoading(false);
+    });
   }, [article_id]);
 
-  console.log(article);
   if (isLoading) {
     return <p>Page Loading...</p>;
   }
@@ -31,9 +37,34 @@ function SingleArticleCard() {
       <p>Author: {article.author}</p>
       <p>Topic: {article.topic}</p>
       <p>Content: {article.body}</p>
-      <p>Comment Count: {article.comment_count}</p>
       <p>Votes: {article.votes}</p>
       <p>Posted At: {article.created_at}</p>
+      <button
+        className="article-comment-button"
+        onClick={() => {
+          setShowComments(!showComments);
+        }}
+      >
+        Comments: {article.comment_count}
+      </button>
+      {showComments && (
+        <div>
+          <ul id="comments-list">
+            <h3>Comments: </h3>
+            {comments.map((comment) => {
+              return (
+                <li className="each-comment" key={comment.comment_id}>
+                  <p>Author: {comment.author}</p>
+                  <p>Comment: {comment.body}</p>
+                  <p>Created At: {comment.created_at}</p>
+                  <p>Votes: {comment.votes}</p>
+                  <br />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
       <br />
     </main>
   );

@@ -1,5 +1,15 @@
 .App {
   text-align: center;
+  background-color: rgb(8, 8, 103);
+  color: rgba(255, 255, 255, 0.618);
+}
+
+* {
+  background-color: rgb(8, 8, 103);
+}
+
+button {
+  background-color: rgba(255, 255, 255, 0.618);
 }
 
 .App-logo {
@@ -71,4 +81,22 @@
 .each-article {
   margin-top: 25px;
   margin-right: 20px;
+}
+
+/* Comments */
+
+#comments-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  justify-content: space-between;
+}
+
+.each-comment {
+  margin-top: 25px;
+  margin-right: 20px;
+  border: solid rgba(255, 255, 255, 0.618);
+  border-radius: 10px;
+  box-shadow: 6px 6px 9px rgba(0, 0, 0, 0.3);
+  padding: 10px;
 }

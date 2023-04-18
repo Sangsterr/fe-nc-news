@@ -13,3 +13,8 @@ export const fetchSpecificArticle = async (article_id) => {
     const response = await newsAPI.get(`/articles/${article_id}`)
     return response.data.msg[0];
 }
+
+export const fetchArticleComments = async (article_id) => {
+    const response = await newsAPI.get(`/articles/${article_id}/comments`)
+    return response.data.comments;
+}
