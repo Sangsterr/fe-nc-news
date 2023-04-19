@@ -6,6 +6,8 @@ import Articles from './components/Articles';
 import SingleArticleCard from './components/SingleArticleCard'
 import ArticleComments from './components/ArticleComments';
 import Navbar from './components/NavBar';
+import Topics from './components/Topics';
+import SingleTopicCard from './components/SingleTopicCard';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/articles/:article_id" element={<SingleArticleCard />} />
+        <Route path="/topics" element={<Topics />} />
+        <Route path="/topics/:topic_slug" element={<SingleTopicCard />} />
       </Routes>
     </div>
   );

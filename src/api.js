@@ -4,8 +4,8 @@ const newsAPI = axios.create({
     baseURL: 'https://james-news.onrender.com/api/'
 });
 
-export const fetchArticles = async () => {
-    const response = await newsAPI.get('/articles');
+export const fetchArticles = async (topic) => {
+    const response = await newsAPI.get('/articles', { params: { topic: topic } });
     return response.data.articles;
 }
 
@@ -29,7 +29,6 @@ export const voteOnArticle = async (article, num) => {
 }
 
 export const postNewComment = async (comment, article) => {
-
     const newComment = {
         body: comment,
         username: 'grumpy19'
@@ -37,6 +36,9 @@ export const postNewComment = async (comment, article) => {
 
     const response = await newsAPI.post(`/articles/${article.article_id}/comments`, newComment);
     return response.data.comment;
+}
 
-
+export const fetchTopics = async () => {
+    const response = await newsAPI.get(`/topics`)
+    return response.data
 }

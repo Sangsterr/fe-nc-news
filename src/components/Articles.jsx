@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import * as api from "../api";
 import ArticlesCard from "./ArticlesCard";
 
-function Articles() {
+function Articles({ topic }) {
   const [articles, setArticles] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    api.fetchArticles().then((articles) => {
+    api.fetchArticles(topic).then((articles) => {
       setArticles(articles);
       setIsLoading(false);
     });
