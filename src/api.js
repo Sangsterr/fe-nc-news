@@ -27,3 +27,16 @@ export const voteOnArticle = async (article, num) => {
     const response = await newsAPI.patch(`/articles/${article.article_id}`, updatedArticle);
     return response.data;
 }
+
+export const postNewComment = async (comment, article) => {
+
+    const newComment = {
+        body: comment,
+        username: 'grumpy19'
+    }
+
+    const response = await newsAPI.post(`/articles/${article.article_id}/comments`, newComment);
+    return response.data.comment;
+
+
+}

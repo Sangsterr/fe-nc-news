@@ -2,23 +2,25 @@ import { useEffect, useState } from "react";
 import { Link, Route, useParams } from "react-router-dom";
 import * as api from "../api";
 import dayjs from "dayjs";
+import ArticleComments from "./ArticleComments";
 
 function SingleArticleCard() {
   const { article_id } = useParams();
   const [article, setArticle] = useState();
   const [comments, setComments] = useState();
   const [showComments, setShowComments] = useState(false);
-  const [currentVotes, setCurrentVotes] = useState();
+  const [newComment, setNewComment] = useState(null);
+  const [buttonText, setButtonText] = useState("Submit Comment");
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
-    api.fetchSpecificArticle(article_id).then((singleArticle) => {
+    Promise.all([
+      api.fetchSpecificArticle(article_id),
+      api.fetchArticleComments(article_id),
+    ]).then(([singleArticle, comments]) => {
       setArticle(singleArticle);
-      setIsLoading(false);
-    });
-    api.fetchArticleComments(article_id).then((comments) => {
       setComments(comments);
       setIsLoading(false);
     });
@@ -30,9 +32,9 @@ function SingleArticleCard() {
       votes: previousArticle.votes + num,
     }));
     api.voteOnArticle(article, num).catch((err) => {
-      setArticle((prevArticle) => ({
-        ...prevArticle,
-        votes: prevArticle.votes - num,
+      setArticle((previousArticle) => ({
+        ...previousArticle,
+        votes: previousArticle.votes - num,
       }));
     });
   }
@@ -75,6 +77,8 @@ function SingleArticleCard() {
         Vote Down
       </button>
       <br />
+
+      <br />
       <button
         className="article-comment-button"
         onClick={() => {
@@ -84,25 +88,12 @@ function SingleArticleCard() {
         Comments: {article.comment_count}
       </button>
       {showComments && (
-        <div>
-          <ul id="comments-list">
-            <h3>Comments: </h3>
-            {comments.map((comment) => {
-              return (
-                <li className="each-comment" key={comment.comment_id}>
-                  <p>Author: {comment.author}</p>
-                  <p>Comment: {comment.body}</p>
-                  <p>
-                    Created At:{" "}
-                    {dayjs(comment.created_at).format("HH:mm:ss - DD-MM-YYYY")}
-                  </p>
-                  <p>Votes: {comment.votes}</p>
-                  <br />
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        <ArticleComments
+          setComments={setComments}
+          comments={comments}
+          setArticle={setArticle}
+          article={article}
+        />
       )}
       <br />
     </main>
