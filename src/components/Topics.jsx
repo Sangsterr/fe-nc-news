@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as api from "../api";
 import TopicCard from "./TopicCard";
+import ErrorComponent from "./ErrorComponent";
 
 function Topics() {
   const [topics, setTopics] = useState();
@@ -19,6 +20,7 @@ function Topics() {
 
   return (
     <main>
+      <h3>Topics</h3>
       <ul id="topics-list">
         {topics.map((topic) => {
           return (

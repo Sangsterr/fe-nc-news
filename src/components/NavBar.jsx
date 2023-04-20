@@ -2,7 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ userAvatar }) => {
   return (
     <nav id="navbar">
       <ul id="nav-list">
@@ -15,13 +15,12 @@ const Navbar = () => {
         <li className="nav-list-item">
           <Link to="/articles">Articles</Link>
         </li>
+        <li className="nav-list-item">
+          <Link to="/users">Users</Link>
+        </li>
       </ul>
       <div id="avatar-wrapper">
-        <img
-          id="user-avatar"
-          src="https://cdn.iconscout.com/icon/free/png-512/avatar-370-456322.png?f=avif&w=256"
-          alt="user-avatar"
-        />
+        <img id="user-avatar" src={userAvatar} alt="user-avatar" />
       </div>
     </nav>
   );
