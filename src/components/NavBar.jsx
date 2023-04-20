@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
-      <ul className="nav-list">
+    <nav id="navbar">
+      <ul id="nav-list">
         <li className="nav-list-item">
           <Link to="/">Home</Link>
         </li>
@@ -16,11 +16,13 @@ const Navbar = () => {
           <Link to="/articles">Articles</Link>
         </li>
       </ul>
-      {/* <img
-        className="basket-icon"
-        src="https://freeiconshop.com/wp-content/uploads/edd/cart-outline.png"
-        alt="basket-icon"
-      /> */}
+      <div id="avatar-wrapper">
+        <img
+          id="user-avatar"
+          src="https://cdn.iconscout.com/icon/free/png-512/avatar-370-456322.png?f=avif&w=256"
+          alt="user-avatar"
+        />
+      </div>
     </nav>
   );
 };

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 
 function ArticlesCard({ article }) {
   return (
@@ -8,10 +9,13 @@ function ArticlesCard({ article }) {
         src={article.article_img_url}
         alt={article.title}
       />
-      <p className="article-context">Title: {article.title}</p>
-      <p className="article-context">Author: {article.author}</p>
+      <p className="article-context">{article.title}</p>
+      <p className="article-context">By: {article.author}</p>
       <p className="article-context">Topic: {article.topic}</p>
       <br />
+      <p className="article-context">
+        Posted At: {dayjs(article.created_at).format("h:mm A - MMM DD, YYYY")}
+      </p>
       <Link to={`/articles/${article.article_id}`}>
         <button> Article </button>
       </Link>

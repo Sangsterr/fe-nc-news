@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 const newsAPI = axios.create({
-    baseURL: 'https://james-news.onrender.com/api/'
+    baseURL: 'https://james-api.onrender.com/api/'
 });
 
-export const fetchArticles = async (topic) => {
-    const response = await newsAPI.get('/articles', { params: { topic: topic } });
+export const fetchArticles = async (topic, sortBy, orderBy) => {
+    console.log(sortBy, orderBy);
+    const response = await newsAPI.get('/articles', { params: { topic: topic, sort_by: sortBy, order: orderBy } });
     return response.data.articles;
 }
 
