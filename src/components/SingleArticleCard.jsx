@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Route, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as api from "../api";
 import dayjs from "dayjs";
 import ArticleComments from "./ArticleComments";
@@ -9,8 +9,6 @@ function SingleArticleCard() {
   const [article, setArticle] = useState();
   const [comments, setComments] = useState();
   const [showComments, setShowComments] = useState(false);
-  const [newComment, setNewComment] = useState(null);
-  const [buttonText, setButtonText] = useState("Submit Comment");
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -50,12 +48,12 @@ function SingleArticleCard() {
         src={article.article_img_url}
         alt={article.title}
       />
-      <p>Title: {article.title}</p>
-      <p>Author: {article.author}</p>
+      <p>{article.title}</p>
+      <p>By: {article.author}</p>
       <p>Topic: {article.topic}</p>
       <p>Content: {article.body}</p>
       <p>
-        Posted At: {dayjs(article.created_at).format("HH:mm:ss - DD-MM-YYYY")}
+        Posted At: {dayjs(article.created_at).format("h:mm A - MMM DD, YYYY")}
       </p>
       <p>Votes: {article.votes}</p>
       <button

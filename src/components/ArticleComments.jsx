@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 import * as api from "../api";
 import dayjs from "dayjs";
 
@@ -71,7 +70,7 @@ function ArticleComments(props) {
               <p>Comment: {comment.body}</p>
               <p>
                 Created At:{" "}
-                {dayjs(comment.created_at).format("HH:mm - DD-MM-YYYY")}
+                {dayjs(comment.created_at).format("h:mm A - MMM DD, YYYY")}
               </p>
               <p>Votes: {comment.votes}</p>
               <br />
