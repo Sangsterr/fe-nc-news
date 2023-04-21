@@ -29,7 +29,6 @@ function UsersCard({
           onClick={() => {
             setUser(username);
             setUserAvatar(avatar_url);
-            console.log(username);
           }}
         >
           {" "}

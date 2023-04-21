@@ -10,11 +10,11 @@ function ArticlesCard({ article }) {
           src={article.article_img_url}
           alt={article.title}
         />
-        <p className="article-context">{article.title}</p>
-        <p className="article-context">By: {article.author}</p>
-        <p className="article-context">Topic: {article.topic}</p>
+        <p className="single-article-title">{article.title}</p>
+        <p className="single-article-author">By: {article.author}</p>
+        <p className="single-article-topic">Topic: {article.topic}</p>
         <br />
-        <p className="article-context">
+        <p className="single-article-date">
           Posted At: {dayjs(article.created_at).format("h:mm A - MMM DD, YYYY")}
         </p>
       </Link>

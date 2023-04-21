@@ -134,7 +134,6 @@ option {
 .article-image {
   max-width: 100% !important;
   height: auto;
-  margin-bottom: 15px;
 }
 
 .article-context {
@@ -170,9 +169,35 @@ option {
   background-color: lightgrey;
 }
 
+.single-article-title {
+  color: black;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.single-article-author {
+  color: black;
+  text-align: left;
+  display: inline;
+  margin-top: 20px;
+  margin-right: 70px;
+}
+
+.single-article-topic {
+  color: black;
+  text-align: left;
+  display: inline;
+  margin-top: 20px;
+  margin-left: auto;
+}
+
+.single-article-date {
+  color: black;
+}
+
 @media (max-width: 468px) {
   .article-context {
-    max-width: 320px;
+    max-width: 350px;
     height: auto;
   }
 }
@@ -186,7 +211,7 @@ option {
 
 .each-comment {
   margin-top: 20px;
-  margin-right: 20px;
+  margin-right: 40px;
   margin-bottom: 20px;
   border: solid rgba(255, 255, 255, 0.618);
   border-radius: 10px;
