@@ -148,7 +148,9 @@ option {
   }
 }
 
-.each-article {
+.link-text {
+  color: inherit;
+  text-decoration: none;
 }
 
 .each-article {

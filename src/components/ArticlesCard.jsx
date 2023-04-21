@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 function ArticlesCard({ article }) {
   return (
     <li className="each-article">
-      <Link to={`/articles/${article.article_id}`}>
+      <Link to={`/articles/${article.article_id}`} className="link-text">
         <img
           className="article-image"
           src={article.article_img_url}
