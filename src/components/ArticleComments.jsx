@@ -90,7 +90,9 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
     <div>
       {!user ? (
         <Link to="/users">
-          <p>Log in to view and post comments</p>
+          <p className="article-login-link">
+            Log in here to post and delete comments
+          </p>
         </Link>
       ) : (
         <form
@@ -123,13 +125,14 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
         {comments.map((comment) => {
           return (
             <li className="each-comment" key={comment.created_at}>
-              <p>Author: {comment.author}</p>
-              <p>Comment: {comment.body}</p>
-              <p>
+              <p className="single-comment-author">Author: {comment.author}</p>
+              <p className="single-comment-votes">Votes: {comment.votes}</p>
+              <p className="single-comment-comment">Comment: {comment.body}</p>
+              <p className="single-comment-date">
                 Created At:{" "}
                 {dayjs(comment.created_at).format("h:mm A - MMM DD, YYYY")}
               </p>
-              <p>Votes: {comment.votes}</p>
+
               <br />
               {comment.author === user &&
                 (deleteError ? (

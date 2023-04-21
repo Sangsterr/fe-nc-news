@@ -19,7 +19,7 @@ function Topics() {
 
   return (
     <main>
-      <h3>Topics</h3>
+      <h3>Topics: </h3>
       <ul id="topics-list">
         {topics.map((topic) => {
           return (

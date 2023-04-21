@@ -5,12 +5,11 @@ function TopicCard({ topic }) {
     <main>
       <section className="articles-list">
         <li className="each-topic">
-          <p>Topic: {topic.slug}</p>
+          <Link to={`/topics/${topic.slug}`}>
+            <p>Topic: {topic.slug}</p>
+          </Link>
           <p> {topic.description}</p>
           <br />
-          <Link to={`/topics/${topic.slug}`}>
-            <button> Related Articles </button>
-          </Link>
         </li>
       </section>
     </main>
