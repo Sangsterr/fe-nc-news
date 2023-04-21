@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import Articles from "./Articles";
 
-function Home() {
+function Home({ user }) {
   return (
     <main>
       <Articles />

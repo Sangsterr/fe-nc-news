@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import * as api from "../api";
 import dayjs from "dayjs";
 import ArticleComments from "./ArticleComments";
+import ErrorComponent from "./ErrorComponent";
 
-function SingleArticleCard() {
+function SingleArticleCard({ user }) {
   const { article_id } = useParams();
   const [article, setArticle] = useState();
   const [comments, setComments] = useState();
   const [showComments, setShowComments] = useState(false);
-
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -17,11 +18,16 @@ function SingleArticleCard() {
     Promise.all([
       api.fetchSpecificArticle(article_id),
       api.fetchArticleComments(article_id),
-    ]).then(([singleArticle, comments]) => {
-      setArticle(singleArticle);
-      setComments(comments);
-      setIsLoading(false);
-    });
+    ])
+      .then(([singleArticle, comments]) => {
+        setArticle(singleArticle);
+        setComments(comments);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setError({ err });
+        setIsLoading(false);
+      });
   }, [article_id]);
 
   function handleChange(num) {
@@ -36,9 +42,12 @@ function SingleArticleCard() {
       }));
     });
   }
-
   if (isLoading) {
     return <p>Page Loading...</p>;
+  }
+
+  if (error) {
+    return <ErrorComponent message={error.err.response.data.msg} />;
   }
 
   return (
@@ -87,6 +96,7 @@ function SingleArticleCard() {
       </button>
       {showComments && (
         <ArticleComments
+          user={user}
           setComments={setComments}
           comments={comments}
           setArticle={setArticle}

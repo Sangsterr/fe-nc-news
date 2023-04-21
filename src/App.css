@@ -8,9 +8,13 @@ a:visited {
   color: rgba(255, 255, 255, 0.618);
 }
 
-* {
+body {
   background-color: rgb(8, 8, 103);
 }
+
+/* * {
+  background-color: rgb(8, 8, 103);
+} */
 
 button {
   background-color: rgba(255, 255, 255, 0.812);
@@ -61,6 +65,7 @@ option {
 #header {
   list-style: none;
   margin-top: 100px;
+  background-color: rgb(8, 8, 103);
 }
 
 /* NavBar */
@@ -96,6 +101,7 @@ option {
   margin: auto;
   padding: 0 20px;
   border-bottom: 4px solid goldenrod;
+  background-color: rgb(8, 8, 103);
 }
 
 #nav-list {
@@ -156,8 +162,24 @@ option {
 }
 
 .each-article {
-  margin-top: 25px;
-  margin-right: 20px;
+}
+
+/* Articles Card*/
+
+.each-article {
+  /* padding-top: 10px; */
+  padding-bottom: 10px;
+  margin-top: 35px;
+  margin-right: 50px;
+  margin-bottom: 25px;
+  border-radius: 0 0 10px 10px;
+  background-color: lightgrey;
+}
+
+/* Single Article Card */
+
+#article-context {
+  /* border-radius: 10px 10px 10px 10px; */
 }
 
 /* Comments */
@@ -182,12 +204,28 @@ option {
   background-color: white;
 }
 
-/* Articles Card*/
+/* Users */
 
-.each-article {
-  /* padding-top: 10px; */
-  padding-bottom: 10px;
+#users-list {
+  list-style: none;
+}
 
-  border-radius: 0 0 10px 10px;
-  background-color: lightgrey;
+@media (max-width: 768px) {
+  .user-avatar {
+    max-width: auto;
+    max-height: 80px;
+  }
+}
+
+@media (min-width: 768px) {
+  .user-avatar {
+    max-width: 100px;
+    height: auto;
+  }
+}
+
+/* Topics */
+
+#topics-list {
+  list-style: none;
 }

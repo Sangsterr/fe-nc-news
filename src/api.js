@@ -5,8 +5,8 @@ const newsAPI = axios.create({
 });
 
 export const fetchArticles = async (topic, sortBy, orderBy) => {
-    console.log(sortBy, orderBy);
-    const response = await newsAPI.get('/articles', { params: { topic: topic, sort_by: sortBy, order: orderBy } });
+    const response = await newsAPI.get('/articles', { params: { topic: topic, sort_by: sortBy, order: orderBy } })
+
     return response.data.articles;
 }
 
@@ -29,10 +29,10 @@ export const voteOnArticle = async (article, num) => {
     return response.data;
 }
 
-export const postNewComment = async (comment, article) => {
+export const postNewComment = async (comment, user, article) => {
     const newComment = {
         body: comment,
-        username: 'grumpy19'
+        username: user
     }
 
     const response = await newsAPI.post(`/articles/${article.article_id}/comments`, newComment);
@@ -42,4 +42,14 @@ export const postNewComment = async (comment, article) => {
 export const fetchTopics = async () => {
     const response = await newsAPI.get(`/topics`)
     return response.data
+}
+
+export const fetchUsers = async () => {
+    const response = await newsAPI.get(`/users`)
+    return response.data.users
+}
+
+export const removeComment = async (comment) => {
+
+    const response = await newsAPI.delete(`comments/${comment}`)
 }

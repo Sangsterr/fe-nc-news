@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import * as api from "../api";
 import ArticlesCard from "./ArticlesCard";
 import { useSearchParams } from "react-router-dom";
+import ErrorComponent from "./ErrorComponent";
 
-function Articles({ topic }) {
+function Articles({ topic, user }) {
   const [articles, setArticles] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const sortByQuery = searchParams.get("sort_by");
   const orderQuery = searchParams.get("order");
@@ -25,24 +27,32 @@ function Articles({ topic }) {
   };
 
   useEffect(() => {
-    console.log("in effect");
-    api.fetchArticles(topic, sortByQuery, orderQuery).then((articles) => {
-      console.log(articles);
-      setArticles(articles);
-      setIsLoading(false);
-    });
+    api
+      .fetchArticles(topic, sortByQuery, orderQuery)
+      .then((articles) => {
+        setArticles(articles);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+        setIsLoading(false);
+      });
   }, [topic, sortByQuery, orderQuery]);
 
   if (isLoading) {
     return <p>Page Loading...</p>;
   }
+
+  if (error) {
+    return <ErrorComponent message={error.response.data.msg} />;
+  }
+
   return (
     <main>
       <label htmlFor="sort-by">Sort By:</label>
       <select
         id="sort-by"
         defaultValue={""}
-        // value={""}
         onChange={(e) => setSortBy(e.target.value)}
       >
         <option value=""></option>
@@ -55,7 +65,6 @@ function Articles({ topic }) {
       <select
         id="sort-order"
         defaultValue={""}
-        // value={"desc"}
         onChange={(e) => setSortOrder(e.target.value)}
       >
         <option value=""></option>
@@ -65,7 +74,13 @@ function Articles({ topic }) {
 
       <ul id="articles-list">
         {articles.map((article) => {
-          return <ArticlesCard article={article} key={article.article_id} />;
+          return (
+            <ArticlesCard
+              article={article}
+              user={user}
+              key={article.article_id}
+            />
+          );
         })}
       </ul>
     </main>
