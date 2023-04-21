@@ -20,7 +20,9 @@ const Navbar = ({ userAvatar }) => {
         </li>
       </ul>
       <div id="avatar-wrapper">
-        <img id="user-avatar" src={userAvatar} alt="user-avatar" />
+        <Link to="/users">
+          <img id="user-avatar" src={userAvatar} alt="user-avatar" />
+        </Link>
       </div>
     </nav>
   );

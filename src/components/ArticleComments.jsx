@@ -12,11 +12,10 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
   const [deleteError, setDeleteError] = useState(false);
 
   function deleteComment(newComment_Id) {
-    console.log(newComment_Id);
     if (typeof newComment_Id === "object") {
       newComment_Id = newComment_Id.comment_id;
     }
-    console.log(newComment_Id);
+
     setComments((previousComments) => {
       const commentsCopy = [...previousComments];
 

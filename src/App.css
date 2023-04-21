@@ -12,12 +12,9 @@ body {
   background-color: rgb(8, 8, 103);
 }
 
-/* * {
-  background-color: rgb(8, 8, 103);
-} */
-
 button {
   background-color: rgba(255, 255, 255, 0.812);
+  border-radius: 10px;
 }
 
 select,
@@ -60,15 +57,11 @@ option {
   }
 }
 
-/* Header */
-
 #header {
   list-style: none;
   margin-top: 100px;
   background-color: rgb(8, 8, 103);
 }
-
-/* NavBar */
 
 @media (max-width: 480px) {
   #user-avatar {
@@ -120,17 +113,13 @@ option {
 
 #avatar-wrapper {
   display: flex;
-  /* align-items: center; */
   margin-left: 10px;
 }
 
 #user-avatar {
-  /* float: right; */
   margin-right: 30px;
   margin-left: auto;
 }
-
-/* Articles */
 
 #articles-list {
   list-style: none;
@@ -142,8 +131,6 @@ option {
 .article-image {
   max-width: 100% !important;
   height: auto;
-  /* border-radius: 0 0 20px 20px; */
-  /* box-shadow: 6px 6px 9px rgba(0, 0, 0, 0.3); */
   margin-bottom: 15px;
 }
 
@@ -164,10 +151,7 @@ option {
 .each-article {
 }
 
-/* Articles Card*/
-
 .each-article {
-  /* padding-top: 10px; */
   padding-bottom: 10px;
   margin-top: 35px;
   margin-right: 50px;
@@ -175,14 +159,6 @@ option {
   border-radius: 0 0 10px 10px;
   background-color: lightgrey;
 }
-
-/* Single Article Card */
-
-#article-context {
-  /* border-radius: 10px 10px 10px 10px; */
-}
-
-/* Comments */
 
 #comments-list {
   list-style: none;
@@ -204,8 +180,6 @@ option {
   background-color: white;
 }
 
-/* Users */
-
 #users-list {
   list-style: none;
 }
@@ -224,8 +198,19 @@ option {
   }
 }
 
-/* Topics */
-
 #topics-list {
   list-style: none;
+}
+
+.topic-card {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+  align-items: center;
+
+  flex-direction: column;
+  width: 30rem;
+  height: auto;
+  border: solid 1px black;
+  box-shadow: 6px 6px 9px rgba(0, 0, 0, 0.3);
 }
