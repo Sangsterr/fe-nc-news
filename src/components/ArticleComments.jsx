@@ -2,12 +2,14 @@ import { useState } from "react";
 import * as api from "../api";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
+import ErrorComponent from "./ErrorComponent";
 
 function ArticleComments({ user, setComments, comments, setArticle, article }) {
   const [newComment, setNewComment] = useState("");
   const [buttonText, setButtonText] = useState("Submit Comment");
   const [newCommentId, setNewCommentId] = useState(null);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [deleteError, setDeleteError] = useState(false);
 
   function deleteComment(newComment_Id) {
     console.log(newComment_Id);
@@ -24,7 +26,18 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
       );
       return updatedComments;
     });
-    api.removeComment(newComment_Id).catch((err) => {});
+    api.removeComment(newComment_Id).catch((err) => {
+      if (err) {
+        alert("Comment could not be deleted.");
+        setDeleteError(true);
+        setComments(comments);
+        setArticle((previousArticle) => ({
+          ...previousArticle,
+          comment_count: previousArticle.comment_count + 1,
+        }));
+        return;
+      }
+    });
 
     setNewCommentId(null);
     setArticle((previousArticle) => ({
@@ -34,8 +47,11 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
   }
   function handleSubmit(e) {
     e.preventDefault();
+
     if (newComment.trim() === "") {
-      alert("Please enter a comment before submitting.");
+      setButtonDisabled(false);
+      setButtonText("Comment needs text");
+      //alert("Please enter a comment before submitting.");
       return;
     }
     const newCommentObj = {
@@ -80,7 +96,7 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
         <form
           onSubmit={(e) => {
             handleSubmit(e);
-
+            setDeleteError(false);
             e.target.disabled = true;
           }}
         >
@@ -92,14 +108,19 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
             value={newComment}
             onChange={(e) => {
               setNewComment(e.target.value);
+              setButtonText("Submit Comment");
             }}
           />
-
-          <button type="submit" disabled={buttonDisabled}>
-            {buttonText}
-          </button>
+          {deleteError ? (
+            <p>Unable to delete comment</p>
+          ) : (
+            <button type="submit" disabled={buttonDisabled}>
+              {buttonText}
+            </button>
+          )}
         </form>
       )}
+
       <ul id="comments-list">
         <h3>Comments: </h3>
         {comments.map((comment) => {
@@ -116,11 +137,6 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
               {comment.author === user && (
                 <button
                   onClick={() => {
-                    console.log(
-                      "inside button: ",
-                      comment.comment_id,
-                      newCommentId
-                    );
                     !newCommentId
                       ? deleteComment(comment.comment_id)
                       : deleteComment(newCommentId.comment_id);
