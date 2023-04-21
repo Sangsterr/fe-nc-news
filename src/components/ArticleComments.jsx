@@ -31,7 +31,6 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
 
       .catch((err) => {
         if (err) {
-          alert("Comment could not be deleted.");
           setDeleteError(true);
           setComments(comments);
           setArticle((previousArticle) => ({
@@ -54,7 +53,6 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
     if (newComment.trim() === "") {
       setButtonDisabled(false);
       setButtonText("Comment needs text");
-      //alert("Please enter a comment before submitting.");
       return;
     }
     const newCommentObj = {
@@ -114,13 +112,10 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
               setButtonText("Submit Comment");
             }}
           />
-          {deleteError ? (
-            <p>Unable to delete comment</p>
-          ) : (
-            <button type="submit" disabled={buttonDisabled}>
-              {buttonText}
-            </button>
-          )}
+
+          <button type="submit" disabled={buttonDisabled}>
+            {buttonText}
+          </button>
         </form>
       )}
 
@@ -137,17 +132,20 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
               </p>
               <p>Votes: {comment.votes}</p>
               <br />
-              {comment.author === user && (
-                <button
-                  onClick={() => {
-                    !newCommentId
-                      ? deleteComment(comment.comment_id)
-                      : deleteComment(newCommentId.comment_id);
-                  }}
-                >
-                  Delete Comment
-                </button>
-              )}
+              {comment.author === user &&
+                (deleteError ? (
+                  <p>Unable to delete comment - Refresh to try again</p>
+                ) : (
+                  <button
+                    onClick={() => {
+                      !newCommentId
+                        ? deleteComment(comment.comment_id)
+                        : deleteComment(newCommentId.comment_id);
+                    }}
+                  >
+                    Delete Comment
+                  </button>
+                ))}
             </li>
           );
         })}
