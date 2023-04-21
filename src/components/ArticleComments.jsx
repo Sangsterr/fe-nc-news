@@ -26,18 +26,21 @@ function ArticleComments({ user, setComments, comments, setArticle, article }) {
       );
       return updatedComments;
     });
-    api.removeComment(newComment_Id).catch((err) => {
-      if (err) {
-        alert("Comment could not be deleted.");
-        setDeleteError(true);
-        setComments(comments);
-        setArticle((previousArticle) => ({
-          ...previousArticle,
-          comment_count: previousArticle.comment_count + 1,
-        }));
-        return;
-      }
-    });
+    api
+      .removeComment(newComment_Id)
+
+      .catch((err) => {
+        if (err) {
+          alert("Comment could not be deleted.");
+          setDeleteError(true);
+          setComments(comments);
+          setArticle((previousArticle) => ({
+            ...previousArticle,
+            comment_count: previousArticle.comment_count + 1,
+          }));
+          return;
+        }
+      });
 
     setNewCommentId(null);
     setArticle((previousArticle) => ({
